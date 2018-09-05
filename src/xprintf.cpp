@@ -28,27 +28,27 @@ static int sBufferSize;
 
 /*-----------------------------------------------------------*/
 
-void xprintfInit( HardwareSerial * pxSerial, int sBufferSize )
+void xprintfInit( HardwareSerial * pxSerial, int sBufferSizePar )
 {
     pxHardwareSerial = pxSerial;
-    sBufferSize = sBufferSize; 
+    sBufferSize = sBufferSizePar; 
     pcBuffer = ( char * ) malloc( sizeof( char ) * sBufferSize );
 }
 /*-----------------------------------------------------------*/
 
-void xprintfInit( SoftwareSerial * pxSerial, int sBufferSize )
+void xprintfInit( SoftwareSerial * pxSerial, int sBufferSizePar )
 {
     pxSoftwareSerial = pxSerial;
-    sBufferSize = sBufferSize;
+    sBufferSize = sBufferSizePar;
     pcBuffer = ( char * ) malloc( sizeof( char ) * sBufferSize );
 }
 /*-----------------------------------------------------------*/
 
 #if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
-void xprintfInit( Serial_ * pxSerial, int sBufferSize )
+void xprintfInit( Serial_ * pxSerial, int sBufferSizePar )
 {
     pxSerial_ = pxSerial;
-    sBufferSize = sBufferSize;
+    sBufferSize = sBufferSizePar;
     pcBuffer = ( char * ) malloc( sizeof( char ) * sBufferSize );
 }
 #endif
@@ -85,6 +85,10 @@ int xprintf( const char * pcFmt, ... )
         {
             sStringLen = -1;
         }
+    }
+    else
+    {
+        sStringLen = -1;
     }
    
     va_end( xArgs );
