@@ -64,9 +64,9 @@ int xprintf( const char * pcFmt, ... )
 {
     int sStringLen = -1;
     va_list xArgs;
-   
+
     va_start( xArgs, pcFmt );
- 
+
     sStringLen = vsnprintf( pcBuffer, sBufferSize, pcFmt, xArgs );
     if( ( sStringLen > 0 ) && ( sStringLen < sBufferSize ) )
     {
@@ -96,8 +96,8 @@ int xprintf( const char * pcFmt, ... )
     {
         sStringLen = -1;
     }
-   
+
     va_end( xArgs );
-   
+
     return sStringLen;
 }
