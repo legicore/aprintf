@@ -17,15 +17,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include <Arduino.h>
+#include <stdint.h>
 
 #include "xprintf.h"
+
+#include <Arduino.h>
+#include <SoftwareSerial.h>
 
 /*-----------------------------------------------------------*/
 
 static HardwareSerial * pxHardwareSerial = NULL;
 static SoftwareSerial * pxSoftwareSerial = NULL;
-#if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
+#if defined __AVR_ATmega32U4__ || defined __AVR_ATmega16U4__
 static Serial_ * pxSerial_ = NULL;
 #endif
 
@@ -50,13 +53,15 @@ void xprintfInit( SoftwareSerial * pxSerial, int sBufferSizePar )
 }
 /*-----------------------------------------------------------*/
 
-#if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
-void xprintfInit( Serial_ * pxSerial, int sBufferSizePar )
-{
-    pxSerial_ = pxSerial;
-    sBufferSize = sBufferSizePar;
-    pcBuffer = ( char * ) malloc( sizeof( char ) * sBufferSize );
-}
+#if defined __AVR_ATmega32U4__ || defined __AVR_ATmega16U4__
+
+    void xprintfInit( Serial_ * pxSerial, int sBufferSizePar )
+    {
+        pxSerial_ = pxSerial;
+        sBufferSize = sBufferSizePar;
+        pcBuffer = ( char * ) malloc( sizeof( char ) * sBufferSize );
+    }
+
 #endif
 /*-----------------------------------------------------------*/
 
@@ -78,7 +83,6 @@ int xprintf( const char * pcFmt, ... )
         else if( pxSoftwareSerial != NULL )
         {
             pxSoftwareSerial->print( pcBuffer );
-            pxSoftwareSerial->flush();
         }
 #if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
         else if( pxSerial_ != NULL )

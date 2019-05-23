@@ -20,8 +20,7 @@
 /*-----------------------------------------------------------*/
 
 #include <Arduino.h>
-
-#include "SoftwareSerial.h"
+#include <SoftwareSerial.h>
 
 /*-----------------------------------------------------------*/
 
@@ -31,7 +30,7 @@
 
 void xprintfInit( HardwareSerial * pxSerial, int sBufferSizePar = xprintfDEFAULT_BUFFER_SIZE );
 void xprintfInit( SoftwareSerial * pxSerial, int sBufferSizePar = xprintfDEFAULT_BUFFER_SIZE );
-#if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
+#if defined __AVR_ATmega32U4__ || defined __AVR_ATmega16U4__
 void xprintfInit( Serial_ * pxSerial, int sBufferSizePar = xprintfDEFAULT_BUFFER_SIZE );
 #endif
 int xprintf( const char * pcFmt, ... );
