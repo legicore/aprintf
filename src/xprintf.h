@@ -17,24 +17,31 @@
 #ifndef __XPRINTF_H__
 #define __XPRINTF_H__
 
-/*-----------------------------------------------------------*/
-
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
-/*-----------------------------------------------------------*/
-
-#define xprintfDEFAULT_BUFFER_SIZE 128
-
-/*-----------------------------------------------------------*/
-
-void xprintfInit( HardwareSerial * pxSerial, int sBufferSizePar = xprintfDEFAULT_BUFFER_SIZE );
-void xprintfInit( SoftwareSerial * pxSerial, int sBufferSizePar = xprintfDEFAULT_BUFFER_SIZE );
-#if defined __AVR_ATmega32U4__ || defined __AVR_ATmega16U4__
-void xprintfInit( Serial_ * pxSerial, int sBufferSizePar = xprintfDEFAULT_BUFFER_SIZE );
+#ifdef __cplusplus
+extern "C" {
 #endif
-int xprintf( const char * pcFmt, ... );
 
-/*-----------------------------------------------------------*/
+/*--------------------------------------------------*/
+
+#if defined( __AVR_ATmega640__  ) || defined( __AVR_ATmega1280__ ) || defined( __AVR_ATmega1281__ ) || defined( __AVR_ATmega2560__ ) || defined( __AVR_ATmega2561__ ) || \
+    defined( __AVR_ATmega328P__ ) || defined( __AVR_ATmega168__  ) || defined( __AVR_ATmega8__    )
+    void xprintfInit( HardwareSerial * serial, int bufferSize );
+#elif defined( __AVR_ATmega4809__ )
+    void xprintfInit( UartClass * serial, int bufferSize );
+#endif
+void xprintfInit_SWS( SoftwareSerial * serial, int bufferSize );
+#if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
+    void xprintfInit_LEO( Serial_ * serial, int bufferSize );
+#endif
+int xprintf( const char * fmt, ... );
+
+/*--------------------------------------------------*/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __XPRINTF_H__ */
