@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 /**
- * @file        xprintf.h
+ * @file        aprintf.h
  *
  * @author      Martin Legleiter
  *
@@ -14,8 +14,8 @@
  */
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef __XPRINTF_H__
-#define __XPRINTF_H__
+#ifndef __APRINTF_H__
+#define __APRINTF_H__
 
 #include <stdlib.h>
 
@@ -39,15 +39,15 @@ extern "C" {
 
 #if defined( __AVR_ATmega640__  ) || defined( __AVR_ATmega1280__ ) || defined( __AVR_ATmega1281__ ) || defined( __AVR_ATmega2560__ ) || defined( __AVR_ATmega2561__ ) || \
     defined( __AVR_ATmega328P__ ) || defined( __AVR_ATmega168__  ) || defined( __AVR_ATmega8__    )
-    void xprintfInit( HardwareSerial * serial, int bufferSize );
+    void aprintfInit( HardwareSerial * serial, int bufferSize );
 #elif defined( __AVR_ATmega4809__ )
-    void xprintfInit( UartClass * serial, int bufferSize );
+    void aprintfInit( UartClass * serial, int bufferSize );
 #endif
-void xprintfInit_SWS( SoftwareSerial * serial, int bufferSize );
+void aprintfInit_SWS( SoftwareSerial * serial, int bufferSize );
 #if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
-    void xprintfInit_LEO( Serial_ * serial, int bufferSize );
+    void aprintfInit_LEO( Serial_ * serial, int bufferSize );
 #endif
-int xprintf( const char * fmt, ... );
+int aprintf( const char * fmt, ... );
 
 /*--------------------------------------------------*/
 
@@ -55,4 +55,4 @@ int xprintf( const char * fmt, ... );
 }
 #endif
 
-#endif /* __XPRINTF_H__ */
+#endif /* __APRINTF_H__ */

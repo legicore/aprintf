@@ -10,8 +10,8 @@
 # Methods and Functions (KEYWORD2)
 #######################################
 
-xprintfInit	KEYWORD2
-xprintf	KEYWORD2
+aprintfInit	KEYWORD2
+aprintf	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
