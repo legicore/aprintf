@@ -6,7 +6,7 @@
  *
  * @brief       TODO
  * 
- * @copyright   2018 Martin Legleiter
+ * @copyright   2021 Martin Legleiter
  * 
  * @license     Use of this source code is governed by an MIT-style
  *              license that can be found in the LICENSE file or at
@@ -17,12 +17,23 @@
 #ifndef __XPRINTF_H__
 #define __XPRINTF_H__
 
+#include <stdlib.h>
+
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/*-----------------------------------------------------------*/
+
+#define _d_1f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 10 ) % 10 )
+#define _d_2f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 100 ) % 100 )
+#define _d_3f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 1000 ) % 1000 )
+#define _d_4f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 10000 ) % 10000 )
+#define _d_5f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 100000 ) % 100000 )
+#define _d_6f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 1000000 ) % 1000000 )
 
 /*--------------------------------------------------*/
 

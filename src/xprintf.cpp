@@ -6,7 +6,7 @@
  *
  * @brief       TODO
  * 
- * @copyright   2018 Martin Legleiter
+ * @copyright   2021 Martin Legleiter
  * 
  * @license     Use of this source code is governed by an MIT-style
  *              license that can be found in the LICENSE file or at
@@ -17,7 +17,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include <stdint.h>
 #include <stdbool.h>
 
 #include "xprintf.h"
