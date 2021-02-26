@@ -11,7 +11,7 @@
  *              The used examples are taken from
  *              http://www.cplusplus.com/reference/cstdio/printf/.
  * 
- * @copyright   2019 Martin Legleiter
+ * @copyright   2021 Martin Legleiter
  * 
  * @license     Use of this source code is governed by an MIT-style
  *              license that can be found in the LICENSE file or at
@@ -26,7 +26,7 @@
 void setup( void )
 {
     Serial.begin( 9600 );
-    xprintfInit( &Serial );
+    xprintfInit( &Serial, 64 );
 }
 /*-----------------------------------------------------------*/
 
