@@ -20,13 +20,15 @@
 #include <stdlib.h>
 
 #include <Arduino.h>
-#include <SoftwareSerial.h>
+#if !defined( ARDUINO_ARCH_RP2040 )
+    #include <SoftwareSerial.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*-----------------------------------------------------------*/
+/*--------------------------------------------------*/
 
 #define _d_1f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 10 ) % 10 )
 #define _d_2f( d, f ) "%"#d"ld.%ld", ( long ) f, abs( ( long ) ( f * 100 ) % 100 )
@@ -38,12 +40,15 @@ extern "C" {
 /*--------------------------------------------------*/
 
 #if defined( __AVR_ATmega640__  ) || defined( __AVR_ATmega1280__ ) || defined( __AVR_ATmega1281__ ) || defined( __AVR_ATmega2560__ ) || defined( __AVR_ATmega2561__ ) || \
-    defined( __AVR_ATmega328P__ ) || defined( __AVR_ATmega168__  ) || defined( __AVR_ATmega8__    )
+    defined( __AVR_ATmega328P__ ) || defined( __AVR_ATmega168__  ) || defined( __AVR_ATmega8__    ) || \
+    defined( ARDUINO_ARCH_RP2040 )
     void aprintfInit( HardwareSerial * serial, int bufferSize );
 #elif defined( __AVR_ATmega4809__ )
     void aprintfInit( UartClass * serial, int bufferSize );
 #endif
-void aprintfInit_SWS( SoftwareSerial * serial, int bufferSize );
+#if !defined( ARDUINO_ARCH_RP2040 )
+    void aprintfInit_SWS( SoftwareSerial * serial, int bufferSize );
+#endif
 #if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
     void aprintfInit_LEO( Serial_ * serial, int bufferSize );
 #endif
