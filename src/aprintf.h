@@ -6,7 +6,7 @@
  *
  * @brief       TODO
  * 
- * @copyright   2021 Martin Legleiter
+ * @copyright   2023 Martin Legleiter
  * 
  * @license     Use of this source code is governed by an MIT-style
  *              license that can be found in the LICENSE file or at
@@ -17,16 +17,22 @@
 #ifndef __APRINTF_H__
 #define __APRINTF_H__
 
-#include <stdlib.h>
+/*--------------------------------------------------*/
+
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "aprintfCompat.h"
 
 #include <Arduino.h>
-#if !defined( ARDUINO_ARCH_RP2040 )
+#if defined( COMPAT_SOFTWARE_SERIAL )
     #include <SoftwareSerial.h>
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+/*--------------------------------------------------*/
+
+#define configBUF_SIZE_DEFAULT  64
 
 /*--------------------------------------------------*/
 
@@ -39,25 +45,15 @@ extern "C" {
 
 /*--------------------------------------------------*/
 
-#if defined( __AVR_ATmega640__  ) || defined( __AVR_ATmega1280__ ) || defined( __AVR_ATmega1281__ ) || defined( __AVR_ATmega2560__ ) || defined( __AVR_ATmega2561__ ) || \
-    defined( __AVR_ATmega328P__ ) || defined( __AVR_ATmega168__  ) || defined( __AVR_ATmega8__    ) || \
-    defined( ARDUINO_ARCH_RP2040 )
-    void aprintfInit( HardwareSerial * serial, int bufferSize );
-#elif defined( __AVR_ATmega4809__ )
-    void aprintfInit( UartClass * serial, int bufferSize );
+int aprintfInit( Serial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
+#if defined( HWSerial_t )
+    int aprintfInit( HWSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
-#if !defined( ARDUINO_ARCH_RP2040 )
-    void aprintfInit_SWS( SoftwareSerial * serial, int bufferSize );
-#endif
-#if defined( __AVR_ATmega32U4__ ) || defined( __AVR_ATmega16U4__ )
-    void aprintfInit_LEO( Serial_ * serial, int bufferSize );
+#if defined( COMPAT_SOFTWARE_SERIAL )
+    int aprintfInit( SoftwareSerial * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
 int aprintf( const char * fmt, ... );
 
 /*--------------------------------------------------*/
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* __APRINTF_H__ */
