@@ -1,2 +1,2 @@
-# xprintf
-printf-like wrapper library for Arduino
+# aprintf
+Wrapper library to use the Arduino serial ports like printf in C.
