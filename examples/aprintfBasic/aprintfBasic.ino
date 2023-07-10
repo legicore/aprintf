@@ -26,7 +26,7 @@
 void setup( void )
 {
     Serial.begin( 9600 );
-    aprintfInit( &Serial, 64 );
+    aprintfInit( &Serial );
 }
 /*-----------------------------------------------------------*/
 
