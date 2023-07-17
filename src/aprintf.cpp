@@ -30,12 +30,12 @@
 
 /*-----------------------------------------------------------*/
 
-Serial_t * pxSerial = NULL;
+MONSerial_t * pxMONSerial = NULL;
 #if defined( HWSerial_t )
-HWSerial_t * pxHWSerial = NULL;
+    HWSerial_t * pxHWSerial = NULL;
 #endif
 #if defined( COMPAT_SOFTWARE_SERIAL )
-SoftwareSerial * pxSWSerial = NULL;
+    SoftwareSerial * pxSWSerial = NULL;
 #endif
 
 char * pcBuffer = NULL;
@@ -49,13 +49,13 @@ static int8_t prvSetBuffer( int16_t sBufferSize );
 
 /*-----------------------------------------------------------*/
 
-int aprintfInit( Serial_t * serial, int bufferSize )
+int aprintfInit( MONSerial_t * serial, int bufferSize )
 {
     if( ( serial != NULL ) && ( bufferSize > 0 ) && ( bInitLock == false ) )
     {
         if( prvSetBuffer( bufferSize ) == 0 )
         {
-            pxSerial = serial;
+            pxMONSerial = serial;
             bInitLock = true;
 
             return 0;
@@ -137,10 +137,10 @@ int aprintf( const char * fmt, ... )
         sStringLen = vsnprintf( pcBuffer, xBufferSize, fmt, xArgs );
         if( ( sStringLen > 0 ) && ( sStringLen < ( int ) xBufferSize ) )
         {
-            if( pxSerial != NULL )
+            if( pxMONSerial != NULL )
             {
-                pxSerial->print( pcBuffer );
-                pxSerial->flush();
+                pxMONSerial->print( pcBuffer );
+                pxMONSerial->flush();
             }
 #if defined( HWSerial_t )
             else if( pxHWSerial != NULL )

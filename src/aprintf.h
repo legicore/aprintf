@@ -45,7 +45,7 @@
 
 /*--------------------------------------------------*/
 
-int aprintfInit( Serial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
+int aprintfInit( MONSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #if defined( HWSerial_t )
     int aprintfInit( HWSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
