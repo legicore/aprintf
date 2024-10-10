@@ -24,7 +24,7 @@
 #include "aprintf.h"
 
 #include <Arduino.h>
-#if defined( COMPAT_SOFTWARE_SERIAL )
+#if defined( SSerial_t )
     #include <SoftwareSerial.h>
 #endif
 
@@ -34,8 +34,8 @@ MSerial_t * pxMSerial = NULL;
 #if defined( HSerial_t )
     HSerial_t * pxHSerial = NULL;
 #endif
-#if defined( COMPAT_SOFTWARE_SERIAL )
-    SoftwareSerial * pxSSerial = NULL;
+#if defined( SSerial_t )
+    SSerial_t * pxSSerial = NULL;
 #endif
 
 char * pcBuffer = NULL;
@@ -87,9 +87,9 @@ int aprintfInit( MSerial_t * serial, int bufferSize )
 #endif
 /*-----------------------------------------------------------*/
 
-#if defined( COMPAT_SOFTWARE_SERIAL )
+#if defined( SSerial_t )
 
-    int aprintfInit( SoftwareSerial * serial, int bufferSize )
+    int aprintfInit( SSerial_t * serial, int bufferSize )
     {
         if( ( serial != NULL ) && ( bufferSize > 0 ) && ( bInitLock == false ) )
         {
@@ -149,7 +149,7 @@ int aprintf( const char * fmt, ... )
                 pxHSerial->flush();
             }
 #endif
-#if defined( COMPAT_SOFTWARE_SERIAL )
+#if defined( SSerial_t )
             else if( pxSSerial != NULL )
             {
                 pxSSerial->print( pcBuffer );

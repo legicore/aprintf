@@ -26,7 +26,7 @@
 #include "aprintfCompat.h"
 
 #include <Arduino.h>
-#if defined( COMPAT_SOFTWARE_SERIAL )
+#if defined( SSerial_t )
     #include <SoftwareSerial.h>
 #endif
 
@@ -49,8 +49,8 @@ int aprintfInit( MSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #if defined( HSerial_t )
     int aprintfInit( HSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
-#if defined( COMPAT_SOFTWARE_SERIAL )
-    int aprintfInit( SoftwareSerial * serial, int bufferSize = configBUF_SIZE_DEFAULT );
+#if defined( SSerial_t )
+    int aprintfInit( SSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
 int aprintf( const char * fmt, ... );
 
