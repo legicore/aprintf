@@ -9,7 +9,7 @@
  *              The following example shows how you can print an float value
  *              with aprintf() and the provided float specifier macros.
  * 
- * @copyright   2021 Martin Legleiter
+ * @copyright   2024 Martin Legleiter
  * 
  * @license     Use of this source code is governed by an MIT-style
  *              license that can be found in the LICENSE file or at
