@@ -30,9 +30,9 @@
 
 /*-----------------------------------------------------------*/
 
-MONSerial_t * pxMONSerial = NULL;
-#if defined( HWSerial_t )
-    HWSerial_t * pxHWSerial = NULL;
+MSerial_t * pxMSerial = NULL;
+#if defined( HSerial_t )
+    HSerial_t * pxHSerial = NULL;
 #endif
 #if defined( COMPAT_SOFTWARE_SERIAL )
     SoftwareSerial * pxSWSerial = NULL;
@@ -49,13 +49,13 @@ static int8_t prvSetBuffer( int16_t sBufferSize );
 
 /*-----------------------------------------------------------*/
 
-int aprintfInit( MONSerial_t * serial, int bufferSize )
+int aprintfInit( MSerial_t * serial, int bufferSize )
 {
     if( ( serial != NULL ) && ( bufferSize > 0 ) && ( bInitLock == false ) )
     {
         if( prvSetBuffer( bufferSize ) == 0 )
         {
-            pxMONSerial = serial;
+            pxMSerial = serial;
             bInitLock = true;
 
             return 0;
@@ -66,15 +66,15 @@ int aprintfInit( MONSerial_t * serial, int bufferSize )
 }
 /*-----------------------------------------------------------*/
 
-#if defined( HWSerial_t )
+#if defined( HSerial_t )
 
-    int aprintfInit( HWSerial_t * serial, int bufferSize )
+    int aprintfInit( HSerial_t * serial, int bufferSize )
     {
         if( ( serial != NULL ) && ( bufferSize > 0 ) && ( bInitLock == false ) )
         {
             if( prvSetBuffer( bufferSize ) == 0 )
             {
-                pxHWSerial = serial;
+                pxHSerial = serial;
                 bInitLock = true;
 
                 return 0;
@@ -137,16 +137,16 @@ int aprintf( const char * fmt, ... )
         sStringLen = vsnprintf( pcBuffer, xBufferSize, fmt, xArgs );
         if( ( sStringLen > 0 ) && ( sStringLen < ( int ) xBufferSize ) )
         {
-            if( pxMONSerial != NULL )
+            if( pxMSerial != NULL )
             {
-                pxMONSerial->print( pcBuffer );
-                pxMONSerial->flush();
+                pxMSerial->print( pcBuffer );
+                pxMSerial->flush();
             }
-#if defined( HWSerial_t )
-            else if( pxHWSerial != NULL )
+#if defined( HSerial_t )
+            else if( pxHSerial != NULL )
             {
-                pxHWSerial->print( pcBuffer );
-                pxHWSerial->flush();
+                pxHSerial->print( pcBuffer );
+                pxHSerial->flush();
             }
 #endif
 #if defined( COMPAT_SOFTWARE_SERIAL )
