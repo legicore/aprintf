@@ -35,7 +35,7 @@ MSerial_t * pxMSerial = NULL;
     HSerial_t * pxHSerial = NULL;
 #endif
 #if defined( COMPAT_SOFTWARE_SERIAL )
-    SoftwareSerial * pxSWSerial = NULL;
+    SoftwareSerial * pxSSerial = NULL;
 #endif
 
 char * pcBuffer = NULL;
@@ -95,7 +95,7 @@ int aprintfInit( MSerial_t * serial, int bufferSize )
         {
             if( prvSetBuffer( bufferSize ) == 0 )
             {
-                pxSWSerial = serial;
+                pxSSerial = serial;
                 bInitLock = true;
 
                 return 0;
@@ -150,10 +150,10 @@ int aprintf( const char * fmt, ... )
             }
 #endif
 #if defined( COMPAT_SOFTWARE_SERIAL )
-            else if( pxSWSerial != NULL )
+            else if( pxSSerial != NULL )
             {
-                pxSWSerial->print( pcBuffer );
-                pxSWSerial->flush();
+                pxSSerial->print( pcBuffer );
+                pxSSerial->flush();
             }
 #endif
             else
