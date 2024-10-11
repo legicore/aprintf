@@ -24,18 +24,18 @@
 #include "aprintf.h"
 
 #include <Arduino.h>
-#if defined( configTYPE_SSERIAL )
+#if defined( configAPF_TYPE_SERIAL_SW )
     #include <SoftwareSerial.h>
 #endif
 
 /*-----------------------------------------------------------*/
 
-MSerial_t * pxMSerial = NULL;
-#if defined( configTYPE_HSERIAL )
-    HSerial_t * pxHSerial = NULL;
+APF_Serial_t * pxSerial = NULL;
+#if defined( configAPF_TYPE_SERIAL_HW )
+    APF_HWSerial_t * pxHWSerial = NULL;
 #endif
-#if defined( configTYPE_SSERIAL )
-    SSerial_t * pxSSerial = NULL;
+#if defined( configAPF_TYPE_SERIAL_SW )
+    APF_SWSerial_t * pxSWSerial = NULL;
 #endif
 
 char * pcBuffer = NULL;
@@ -49,13 +49,13 @@ static int8_t prvSetBuffer( int16_t sBufferSize );
 
 /*-----------------------------------------------------------*/
 
-int aprintfInit( MSerial_t * serial, int bufferSize )
+int aprintfInit( APF_Serial_t * serial, int bufferSize )
 {
     if( ( serial != NULL ) && ( bufferSize > 0 ) && ( bInitLock == false ) )
     {
         if( prvSetBuffer( bufferSize ) == 0 )
         {
-            pxMSerial = serial;
+            pxSerial = serial;
             bInitLock = true;
 
             return 0;
@@ -66,15 +66,15 @@ int aprintfInit( MSerial_t * serial, int bufferSize )
 }
 /*-----------------------------------------------------------*/
 
-#if defined( configTYPE_HSERIAL )
+#if defined( configAPF_TYPE_SERIAL_HW )
 
-    int aprintfInit( HSerial_t * serial, int bufferSize )
+    int aprintfInit( APF_HWSerial_t * serial, int bufferSize )
     {
         if( ( serial != NULL ) && ( bufferSize > 0 ) && ( bInitLock == false ) )
         {
             if( prvSetBuffer( bufferSize ) == 0 )
             {
-                pxHSerial = serial;
+                pxHWSerial = serial;
                 bInitLock = true;
 
                 return 0;
@@ -87,15 +87,15 @@ int aprintfInit( MSerial_t * serial, int bufferSize )
 #endif
 /*-----------------------------------------------------------*/
 
-#if defined( configTYPE_SSERIAL )
+#if defined( configAPF_TYPE_SERIAL_SW )
 
-    int aprintfInit( SSerial_t * serial, int bufferSize )
+    int aprintfInit( APF_SWSerial_t * serial, int bufferSize )
     {
         if( ( serial != NULL ) && ( bufferSize > 0 ) && ( bInitLock == false ) )
         {
             if( prvSetBuffer( bufferSize ) == 0 )
             {
-                pxSSerial = serial;
+                pxSWSerial = serial;
                 bInitLock = true;
 
                 return 0;
@@ -137,23 +137,23 @@ int aprintf( const char * fmt, ... )
         sStringLen = vsnprintf( pcBuffer, xBufferSize, fmt, xArgs );
         if( ( sStringLen > 0 ) && ( sStringLen < ( int ) xBufferSize ) )
         {
-            if( pxMSerial != NULL )
+            if( pxSerial != NULL )
             {
-                pxMSerial->print( pcBuffer );
-                pxMSerial->flush();
+                pxSerial->print( pcBuffer );
+                pxSerial->flush();
             }
-#if defined( configTYPE_HSERIAL )
-            else if( pxHSerial != NULL )
+#if defined( configAPF_TYPE_SERIAL_HW )
+            else if( pxHWSerial != NULL )
             {
-                pxHSerial->print( pcBuffer );
-                pxHSerial->flush();
+                pxHWSerial->print( pcBuffer );
+                pxHWSerial->flush();
             }
 #endif
-#if defined( configTYPE_SSERIAL )
-            else if( pxSSerial != NULL )
+#if defined( configAPF_TYPE_SERIAL_SW )
+            else if( pxSWSerial != NULL )
             {
-                pxSSerial->print( pcBuffer );
-                pxSSerial->flush();
+                pxSWSerial->print( pcBuffer );
+                pxSWSerial->flush();
             }
 #endif
             else

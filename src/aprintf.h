@@ -26,7 +26,7 @@
 #include "aprintfCompat.h"
 
 #include <Arduino.h>
-#if defined( configTYPE_SSERIAL )
+#if defined( configAPF_TYPE_SERIAL_SW )
     #include <SoftwareSerial.h>
 #endif
 
@@ -45,21 +45,21 @@
 
 /*--------------------------------------------------*/
 
-typedef configTYPE_MSERIAL MSerial_t;
-#if defined( configTYPE_HSERIAL )
-    typedef configTYPE_HSERIAL HSerial_t;
+typedef configAPF_TYPE_SERIAL APF_Serial_t;
+#if defined( configAPF_TYPE_SERIAL_HW )
+    typedef configAPF_TYPE_SERIAL_HW APF_HWSerial_t;
 #endif
-#if defined( configTYPE_SSERIAL )
-    typedef configTYPE_SSERIAL SSerial_t;
+#if defined( configAPF_TYPE_SERIAL_SW )
+    typedef configAPF_TYPE_SERIAL_SW APF_SWSerial_t;
 #endif
 /*--------------------------------------------------*/
 
-int aprintfInit( MSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
-#if defined( configTYPE_HSERIAL )
-    int aprintfInit( HSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
+int aprintfInit( APF_Serial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
+#if defined( configAPF_TYPE_SERIAL_HW )
+    int aprintfInit( APF_HWSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
-#if defined( configTYPE_SSERIAL )
-    int aprintfInit( SSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
+#if defined( configAPF_TYPE_SERIAL_SW )
+    int aprintfInit( APF_SWSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
 int aprintf( const char * fmt, ... );
 
