@@ -36,38 +36,38 @@
         defined( ARDUINO_AVR_MEGA2560 ) || \
         defined( ARDUINO_AVR_PRO )
 
-        #define MSerial_t   HardwareSerial
-        #define SSerial_t   SoftwareSerial
+        #define configTYPE_MSERIAL  HardwareSerial
+        #define configTYPE_SSERIAL  SoftwareSerial
 
     #elif defined( ARDUINO_AVR_LEONARDO )
 
-        #define MSerial_t   Serial_
-        #define HSerial_t   HardwareSerial
-        #define SSerial_t   SoftwareSerial
+        #define configTYPE_MSERIAL  Serial_
+        #define configTYPE_HSERIAL  HardwareSerial
+        #define configTYPE_SSERIAL  SoftwareSerial
 
     #elif defined( ARDUINO_AVR_NANO_EVERY ) || \
           defined( ARDUINO_AVR_UNO_WIFI_REV2 )
 
-        #define MSerial_t   UartClass
-        #define SSerial_t   SoftwareSerial
+        #define configTYPE_MSERIAL  UartClass
+        #define configTYPE_SSERIAL  SoftwareSerial
 
     #elif defined( ARDUINO_SAMD_MKRZERO ) || \
           defined( ARDUINO_SAMD_NANO_33_IOT )
 
-        #define MSerial_t   Serial_
-        #define HSerial_t   Uart
+        #define configTYPE_MSERIAL  Serial_
+        #define configTYPE_HSERIAL  Uart
 
     #elif defined( ARDUINO_MINIMA ) || \
           defined( ARDUINO_UNOWIFIR4 )
 
-        #define MSerial_t   _SerialUSB
-        #define HSerial_t   UART
-        #define SSerial_t   SoftwareSerial
+        #define configTYPE_MSERIAL  _SerialUSB
+        #define configTYPE_HSERIAL  UART
+        #define configTYPE_SSERIAL  SoftwareSerial
 
     #elif defined( ARDUINO_ARCH_ESP32 )
 
-        #define MSerial_t   USBCDC
-        #define HSerial_t   HardwareSerial
+        #define configTYPE_MSERIAL  USBCDC
+        #define configTYPE_HSERIAL  HardwareSerial
 
     #else
 
@@ -84,9 +84,9 @@
 /* If none of the needed defines is set, we try to use some assumed default
 values for the Arduino serial port. */
 
-#if !defined( MSerial_t )
+#if !defined( configTYPE_MSERIAL )
 
-    #define MSerial_t HardwareSerial
+    #define configTYPE_MSERIAL HardwareSerial
 
 #endif
 

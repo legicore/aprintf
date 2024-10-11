@@ -26,13 +26,13 @@
 #include "aprintfCompat.h"
 
 #include <Arduino.h>
-#if defined( SSerial_t )
+#if defined( configTYPE_SSERIAL )
     #include <SoftwareSerial.h>
 #endif
 
 /*--------------------------------------------------*/
 
-#define configBUF_SIZE_DEFAULT  64
+#define configBUF_SIZE_DEFAULT 64
 
 /*--------------------------------------------------*/
 
@@ -45,11 +45,20 @@
 
 /*--------------------------------------------------*/
 
+typedef configTYPE_MSERIAL MSerial_t;
+#if defined( configTYPE_HSERIAL )
+    typedef configTYPE_HSERIAL HSerial_t;
+#endif
+#if defined( configTYPE_SSERIAL )
+    typedef configTYPE_SSERIAL SSerial_t;
+#endif
+/*--------------------------------------------------*/
+
 int aprintfInit( MSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
-#if defined( HSerial_t )
+#if defined( configTYPE_HSERIAL )
     int aprintfInit( HSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
-#if defined( SSerial_t )
+#if defined( configTYPE_SSERIAL )
     int aprintfInit( SSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
 int aprintf( const char * fmt, ... );
