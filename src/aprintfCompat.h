@@ -36,38 +36,38 @@
         defined( ARDUINO_AVR_MEGA2560 ) || \
         defined( ARDUINO_AVR_PRO )
 
-        #define configAPF_TYPE_SERIAL       HardwareSerial
-        #define configAPF_TYPE_SERIAL_SW    SoftwareSerial
+        #define configAPF_SERIAL        HardwareSerial
+        #define configAPF_SERIAL_SW     SoftwareSerial
 
     #elif defined( ARDUINO_AVR_LEONARDO )
 
-        #define configAPF_TYPE_SERIAL       Serial_
-        #define configAPF_TYPE_SERIAL_HW    HardwareSerial
-        #define configAPF_TYPE_SERIAL_SW    SoftwareSerial
+        #define configAPF_SERIAL        Serial_
+        #define configAPF_SERIAL_HW     HardwareSerial
+        #define configAPF_SERIAL_SW     SoftwareSerial
 
     #elif defined( ARDUINO_AVR_NANO_EVERY ) || \
           defined( ARDUINO_AVR_UNO_WIFI_REV2 )
 
-        #define configAPF_TYPE_SERIAL       UartClass
-        #define configAPF_TYPE_SERIAL_SW    SoftwareSerial
+        #define configAPF_SERIAL        UartClass
+        #define configAPF_SERIAL_SW     SoftwareSerial
 
     #elif defined( ARDUINO_SAMD_MKRZERO ) || \
           defined( ARDUINO_SAMD_NANO_33_IOT )
 
-        #define configAPF_TYPE_SERIAL       Serial_
-        #define configAPF_TYPE_SERIAL_HW    Uart
+        #define configAPF_SERIAL        Serial_
+        #define configAPF_SERIAL_HW     Uart
 
     #elif defined( ARDUINO_MINIMA ) || \
           defined( ARDUINO_UNOWIFIR4 )
 
-        #define configAPF_TYPE_SERIAL       _SerialUSB
-        #define configAPF_TYPE_SERIAL_HW    UART
-        #define configAPF_TYPE_SERIAL_SW    SoftwareSerial
+        #define configAPF_SERIAL        _SerialUSB
+        #define configAPF_SERIAL_HW     UART
+        #define configAPF_SERIAL_SW     SoftwareSerial
 
     #elif defined( ARDUINO_ARCH_ESP32 )
 
-        #define configAPF_TYPE_SERIAL       USBCDC
-        #define configAPF_TYPE_SERIAL_HW    HardwareSerial
+        #define configAPF_SERIAL        USBCDC
+        #define configAPF_SERIAL_HW     HardwareSerial
 
     #else
 
@@ -84,9 +84,9 @@
 /* If none of the needed defines is set, we try to use some assumed default
 values for the Arduino serial port. */
 
-#if !defined( configAPF_TYPE_SERIAL )
+#if !defined( configAPF_SERIAL )
 
-    #define configAPF_TYPE_SERIAL HardwareSerial
+    #define configAPF_SERIAL HardwareSerial
 
 #endif
 

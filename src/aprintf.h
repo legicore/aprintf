@@ -26,13 +26,9 @@
 #include "aprintfCompat.h"
 
 #include <Arduino.h>
-#if defined( configAPF_TYPE_SERIAL_SW )
+#if defined( configAPF_SERIAL_SW )
     #include <SoftwareSerial.h>
 #endif
-
-/*--------------------------------------------------*/
-
-#define configBUF_SIZE_DEFAULT 64
 
 /*--------------------------------------------------*/
 
@@ -45,20 +41,24 @@
 
 /*--------------------------------------------------*/
 
-typedef configAPF_TYPE_SERIAL APF_Serial_t;
-#if defined( configAPF_TYPE_SERIAL_HW )
-    typedef configAPF_TYPE_SERIAL_HW APF_HWSerial_t;
+#define configBUF_SIZE_DEFAULT 64
+
+/*--------------------------------------------------*/
+
+typedef configAPF_SERIAL APF_Serial_t;
+#if defined( configAPF_SERIAL_HW )
+    typedef configAPF_SERIAL_HW APF_HWSerial_t;
 #endif
-#if defined( configAPF_TYPE_SERIAL_SW )
-    typedef configAPF_TYPE_SERIAL_SW APF_SWSerial_t;
+#if defined( configAPF_SERIAL_SW )
+    typedef configAPF_SERIAL_SW APF_SWSerial_t;
 #endif
 /*--------------------------------------------------*/
 
 int aprintfInit( APF_Serial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
-#if defined( configAPF_TYPE_SERIAL_HW )
+#if defined( configAPF_SERIAL_HW )
     int aprintfInit( APF_HWSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
-#if defined( configAPF_TYPE_SERIAL_SW )
+#if defined( configAPF_SERIAL_SW )
     int aprintfInit( APF_SWSerial_t * serial, int bufferSize = configBUF_SIZE_DEFAULT );
 #endif
 int aprintf( const char * fmt, ... );

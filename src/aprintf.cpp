@@ -24,17 +24,17 @@
 #include "aprintf.h"
 
 #include <Arduino.h>
-#if defined( configAPF_TYPE_SERIAL_SW )
+#if defined( configAPF_SERIAL_SW )
     #include <SoftwareSerial.h>
 #endif
 
 /*-----------------------------------------------------------*/
 
 APF_Serial_t * pxSerial = NULL;
-#if defined( configAPF_TYPE_SERIAL_HW )
+#if defined( configAPF_SERIAL_HW )
     APF_HWSerial_t * pxHWSerial = NULL;
 #endif
-#if defined( configAPF_TYPE_SERIAL_SW )
+#if defined( configAPF_SERIAL_SW )
     APF_SWSerial_t * pxSWSerial = NULL;
 #endif
 
@@ -66,7 +66,7 @@ int aprintfInit( APF_Serial_t * serial, int bufferSize )
 }
 /*-----------------------------------------------------------*/
 
-#if defined( configAPF_TYPE_SERIAL_HW )
+#if defined( configAPF_SERIAL_HW )
 
     int aprintfInit( APF_HWSerial_t * serial, int bufferSize )
     {
@@ -87,7 +87,7 @@ int aprintfInit( APF_Serial_t * serial, int bufferSize )
 #endif
 /*-----------------------------------------------------------*/
 
-#if defined( configAPF_TYPE_SERIAL_SW )
+#if defined( configAPF_SERIAL_SW )
 
     int aprintfInit( APF_SWSerial_t * serial, int bufferSize )
     {
@@ -142,14 +142,14 @@ int aprintf( const char * fmt, ... )
                 pxSerial->print( pcBuffer );
                 pxSerial->flush();
             }
-#if defined( configAPF_TYPE_SERIAL_HW )
+#if defined( configAPF_SERIAL_HW )
             else if( pxHWSerial != NULL )
             {
                 pxHWSerial->print( pcBuffer );
                 pxHWSerial->flush();
             }
 #endif
-#if defined( configAPF_TYPE_SERIAL_SW )
+#if defined( configAPF_SERIAL_SW )
             else if( pxSWSerial != NULL )
             {
                 pxSWSerial->print( pcBuffer );
